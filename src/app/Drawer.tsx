@@ -7,6 +7,7 @@ interface DrawerProps {
 export default function Drawer({ children }: DrawerProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
+  const FILL_COLOR = "#fff";
 
   const [isDrawing, setIsDrawing] = useState(false);
 
@@ -23,6 +24,9 @@ export default function Drawer({ children }: DrawerProps) {
     ctx.strokeStyle = "black";
     ctx.lineWidth = 3;
     ctxRef.current = ctx;
+
+    ctxRef.current.fillStyle = FILL_COLOR;
+    ctxRef.current.fillRect(0, 0, canvas.width, canvas.height);
   }, []);
 
   const startDrawing = (e: React.MouseEvent<HTMLCanvasElement>) => {
@@ -43,8 +47,26 @@ export default function Drawer({ children }: DrawerProps) {
     ctxRef.current.closePath();
     setIsDrawing(false);
   };
+
+  const clearCanvas = () => {
+    if (!ctxRef.current || !canvasRef.current) return;
+    ctxRef.current.clearRect(
+      0,
+      0,
+      canvasRef.current.width,
+      canvasRef.current.height
+    );
+
+    ctxRef.current.fillStyle = FILL_COLOR;
+    ctxRef.current.fillRect(
+      0,
+      0,
+      canvasRef.current.width,
+      canvasRef.current.height
+    );
+  };
   return (
-    <div>
+    <div className="bg-gray-200 p-4 space-y-4">
       <canvas
         ref={canvasRef}
         onMouseDown={startDrawing}
@@ -53,6 +75,18 @@ export default function Drawer({ children }: DrawerProps) {
         onMouseLeave={stopDrawing}
         className="border-2 border-black bg-white cursor-crosshair"
       />
+
+      <div className="flex w-full space-x-4">
+        <button
+          onClick={clearCanvas}
+          className="flex-1 bg-blue-500 text-white py-2 rounded"
+        >
+          Clear
+        </button>
+        <button className="flex-1 bg-green-500 text-white py-2 rounded">
+          Predict
+        </button>
+      </div>
     </div>
   );
 }
