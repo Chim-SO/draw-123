@@ -2,9 +2,9 @@
 import React, { useEffect, useRef, useState } from "react";
 
 interface DrawerProps {
-  children?: React.ReactNode;
+  predict: () => void;
 }
-export default function Drawer({ children }: DrawerProps) {
+export default function Drawer({ predict }: DrawerProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
   const FILL_COLOR = "#fff";
@@ -78,12 +78,15 @@ export default function Drawer({ children }: DrawerProps) {
 
       <div className="flex w-full space-x-4">
         <button
-          onClick={clearCanvas}
           className="flex-1 bg-blue-500 text-white py-2 rounded"
+          onClick={clearCanvas}
         >
           Clear
         </button>
-        <button className="flex-1 bg-green-500 text-white py-2 rounded">
+        <button
+          className="flex-1 bg-green-500 text-white py-2 rounded"
+          onClick={predict}
+        >
           Predict
         </button>
       </div>
