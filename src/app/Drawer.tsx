@@ -1,8 +1,10 @@
 "use client";
-import { useRef, useState, useEffect } from "react";
-import AppCanvas from "../common/AppCanvas";
+import React, { useEffect, useRef, useState } from "react";
 
-export default function DrawingCanvas() {
+interface DrawerProps {
+  children?: React.ReactNode;
+}
+export default function Drawer({ children }: DrawerProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
 
@@ -11,6 +13,8 @@ export default function DrawingCanvas() {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+    canvas.width = 500;
+    canvas.height = 500;
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
@@ -39,14 +43,16 @@ export default function DrawingCanvas() {
     ctxRef.current.closePath();
     setIsDrawing(false);
   };
-
   return (
-    <AppCanvas
-      canvasRef={canvasRef}
-      onMouseDown={startDrawing}
-      onMouseMove={draw}
-      onMouseUp={stopDrawing}
-      onMouseLeave={stopDrawing}
-    />
+    <div>
+      <canvas
+        ref={canvasRef}
+        onMouseDown={startDrawing}
+        onMouseMove={draw}
+        onMouseUp={stopDrawing}
+        onMouseLeave={stopDrawing}
+        className="border-2 border-black bg-white cursor-crosshair"
+      />
+    </div>
   );
 }
