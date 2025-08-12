@@ -39,9 +39,26 @@ export default function Home() {
 
     // strip off prefix
     const base64 = base64Image.replace(/^data:image\/png;base64,/, "");
-    console.log("Image ready for prediction!");
+    const response = await fetch("/api/invocations", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        instances: [
+          {
+            image_base64: base64,
+          },
+        ],
+      }),
+    });
 
-    // setPrediction(result.predictions);
+    if (!response.ok) {
+      console.error("Failed to send data");
+      return;
+    }
+
+    const result = await response.json();
+
+    setPrediction(result.predictions);
     setLoading(false);
   };
   return (
