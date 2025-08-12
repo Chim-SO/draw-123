@@ -3,10 +3,18 @@ import React, { useEffect, useRef, useState } from "react";
 
 interface DrawerProps {
   predict: () => void;
+  clear: () => void;
+  canvasRef: React.RefObject<HTMLCanvasElement | null>;
+  ctxRef: React.RefObject<CanvasRenderingContext2D | null>;
+  predictText: string;
 }
-export default function Drawer({ predict }: DrawerProps) {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
+export default function Drawer({
+  predict,
+  clear,
+  canvasRef,
+  ctxRef,
+  predictText,
+}: DrawerProps) {
   const FILL_COLOR = "#fff";
 
   const [isDrawing, setIsDrawing] = useState(false);
@@ -48,25 +56,8 @@ export default function Drawer({ predict }: DrawerProps) {
     setIsDrawing(false);
   };
 
-  const clearCanvas = () => {
-    if (!ctxRef.current || !canvasRef.current) return;
-    ctxRef.current.clearRect(
-      0,
-      0,
-      canvasRef.current.width,
-      canvasRef.current.height
-    );
-
-    ctxRef.current.fillStyle = FILL_COLOR;
-    ctxRef.current.fillRect(
-      0,
-      0,
-      canvasRef.current.width,
-      canvasRef.current.height
-    );
-  };
   return (
-    <div className="bg-gray-200 p-4 space-y-4">
+    <div className="bg-white p-4 space-y-4">
       <canvas
         ref={canvasRef}
         onMouseDown={startDrawing}
@@ -78,16 +69,17 @@ export default function Drawer({ predict }: DrawerProps) {
 
       <div className="flex w-full space-x-4">
         <button
-          className="flex-1 bg-blue-500 text-white py-2 rounded"
-          onClick={clearCanvas}
+          className="flex-1 text-xl bg-white text-black py-2 border-2 rounded border-black
+          hover:bg-gray-500 hover:cursor-pointer"
+          onClick={clear}
         >
           Clear
         </button>
         <button
-          className="flex-1 bg-green-500 text-white py-2 rounded"
+          className="flex-1 text-xl bg-black text-white py-2 rounded border-2 border-white hover:bg-gray-500 hover:cursor-pointer"
           onClick={predict}
         >
-          Predict
+          {predictText}
         </button>
       </div>
     </div>
