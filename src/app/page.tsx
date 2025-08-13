@@ -64,7 +64,7 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center justify-center h-screen space-y-5 p-10">
       <h1 className="text-5xl font-bold bg-white border-4 border-black">
-        Write a Number (0–9)!
+        Draw a Number (0–9)!
       </h1>
       <Drawer
         canvasRef={canvasRef}
@@ -76,7 +76,7 @@ export default function Home() {
       {prediction && (
         <h2 className="text-3xl bg-white">
           {" "}
-          Emm, you were trying to write: {prediction.class}. I'm{" "}
+          🤔 Hmm, you were trying to write: {prediction.class}. I'm{" "}
           {(prediction.confidence * 100).toFixed(2)}% confident!
         </h2>
       )}
