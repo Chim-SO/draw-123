@@ -53,6 +53,7 @@ export default function Home() {
     }
 
     const result = await response.json();
+    console.log(result);
     setPrediction(result.prediction);
     setLoading(false);
   };
