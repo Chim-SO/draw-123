@@ -43,11 +43,7 @@ export default function Home() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        instances: [
-          {
-            image_base64: base64,
-          },
-        ],
+        image_base64: base64,
       }),
     });
 
@@ -57,8 +53,7 @@ export default function Home() {
     }
 
     const result = await response.json();
-
-    setPrediction(result.predictions);
+    setPrediction(result.prediction);
     setLoading(false);
   };
   return (
