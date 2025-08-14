@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 interface DrawerProps {
   OnPredict: (base64Image: string) => void;
@@ -99,6 +100,10 @@ export default function Drawer({ OnPredict, onClear }: DrawerProps) {
     const base64Image = canvas.toDataURL("image/png");
 
     if (!emptyCanvas) await OnPredict(base64Image);
+    else
+      toast.error(
+        "Oops! The drawing box is empty. Try drawing a number first."
+      );
     setLoading(false);
   };
 
@@ -129,6 +134,7 @@ export default function Drawer({ OnPredict, onClear }: DrawerProps) {
         >
           {loading ? "Predicting..." : "Predict"}
         </button>
+        <Toaster position="top-center" />
       </div>
     </div>
   );
