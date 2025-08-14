@@ -69,13 +69,14 @@ export default function Home() {
         clear={clearCanvas}
         predictText={loading ? "Predicting..." : "Predict"}
       ></Drawer>
-      {prediction && (
-        <h2 className="text-3xl bg-white">
-          {" "}
-          🤔 Hmm, you were trying to write: {prediction.class}. I'm{" "}
-          {(prediction.confidence * 100).toFixed(2)}% confident!
-        </h2>
-      )}
+      <h2 className="min-h-14 text-3xl bg-white">
+        {prediction && (
+          <>
+            🤔 Hmm, you were trying to write: {prediction.class}. I'm{" "}
+            {(prediction.confidence * 100).toFixed(2)}% confident!
+          </>
+        )}
+      </h2>
     </div>
   );
 }
