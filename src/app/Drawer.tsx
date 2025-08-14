@@ -2,19 +2,13 @@
 import React, { useEffect, useRef, useState } from "react";
 
 interface DrawerProps {
-  predict: () => void;
-  clear: () => void;
-  canvasRef: React.RefObject<HTMLCanvasElement | null>;
-  ctxRef: React.RefObject<CanvasRenderingContext2D | null>;
-  predictText: string;
+  OnPredict: (base64Image: string) => void;
+  onClear: () => void;
 }
-export default function Drawer({
-  predict,
-  clear,
-  canvasRef,
-  ctxRef,
-  predictText,
-}: DrawerProps) {
+export default function Drawer({ OnPredict, onClear }: DrawerProps) {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
+  const [loading, setLoading] = useState(false);
   const FILL_COLOR = "#fff";
 
   const [isDrawing, setIsDrawing] = useState(false);
@@ -56,6 +50,35 @@ export default function Drawer({
     setIsDrawing(false);
   };
 
+  const clearCanvas = () => {
+    if (!ctxRef.current || !canvasRef.current) return;
+    ctxRef.current.clearRect(
+      0,
+      0,
+      canvasRef.current.width,
+      canvasRef.current.height
+    );
+
+    ctxRef.current.fillStyle = "#fff";
+    ctxRef.current.fillRect(
+      0,
+      0,
+      canvasRef.current.width,
+      canvasRef.current.height
+    );
+    onClear();
+  };
+
+  const predict = async () => {
+    setLoading(true);
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const base64Image = canvas.toDataURL("image/png");
+
+    await OnPredict(base64Image);
+    setLoading(false);
+  };
+
   return (
     <div className="bg-white p-4 space-y-4">
       <canvas
@@ -71,7 +94,7 @@ export default function Drawer({
         <button
           className="flex-1 text-xl bg-white text-black py-2 border-2 rounded border-black
           hover:bg-gray-500 hover:cursor-pointer"
-          onClick={clear}
+          onClick={clearCanvas}
         >
           Clear
         </button>
@@ -79,7 +102,7 @@ export default function Drawer({
           className="flex-1 text-xl bg-black text-white py-2 rounded border-2 border-white hover:bg-gray-500 hover:cursor-pointer"
           onClick={predict}
         >
-          {predictText}
+          {loading ? "Predicting..." : "Predict"}
         </button>
       </div>
     </div>
