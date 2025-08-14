@@ -9,6 +9,7 @@ export default function Drawer({ OnPredict, onClear }: DrawerProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
   const [loading, setLoading] = useState(false);
+  const [emptyCanvas, setEmptyCanvas] = useState(true);
   const [canvasSize, setCanvasSize] = useState({ width: 500, height: 500 });
   const FILL_COLOR = "#fff";
 
@@ -56,6 +57,7 @@ export default function Drawer({ OnPredict, onClear }: DrawerProps) {
     ctxRef.current.beginPath();
     ctxRef.current.moveTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
     setIsDrawing(true);
+    setEmptyCanvas(false);
   };
 
   const draw = (e: React.MouseEvent<HTMLCanvasElement>) => {
@@ -86,6 +88,7 @@ export default function Drawer({ OnPredict, onClear }: DrawerProps) {
       canvasRef.current.width,
       canvasRef.current.height
     );
+    setEmptyCanvas(true);
     onClear();
   };
 
@@ -95,7 +98,7 @@ export default function Drawer({ OnPredict, onClear }: DrawerProps) {
     if (!canvas) return;
     const base64Image = canvas.toDataURL("image/png");
 
-    await OnPredict(base64Image);
+    if (!emptyCanvas) await OnPredict(base64Image);
     setLoading(false);
   };
 
