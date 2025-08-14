@@ -12,6 +12,7 @@ export default function Drawer({ OnPredict, onClear }: DrawerProps) {
   const [loading, setLoading] = useState(false);
   const [emptyCanvas, setEmptyCanvas] = useState(true);
   const [canvasSize, setCanvasSize] = useState({ width: 500, height: 500 });
+  const [lastPos, setLastPos] = useState<{ x: number; y: number } | null>(null);
   const FILL_COLOR = "#fff";
 
   const [isDrawing, setIsDrawing] = useState(false);
@@ -53,6 +54,18 @@ export default function Drawer({ OnPredict, onClear }: DrawerProps) {
     return () => window.removeEventListener("resize", resizeCanvas);
   }, []);
 
+  const drawLine = (
+    start: { x: number; y: number },
+    end: { x: number; y: number }
+  ) => {
+    if (!ctxRef.current) return;
+    ctxRef.current.beginPath();
+    ctxRef.current.moveTo(start.x, start.y);
+    ctxRef.current.lineTo(end.x, end.y);
+    ctxRef.current.stroke();
+    ctxRef.current.closePath();
+  };
+
   const startDrawing = (e: React.MouseEvent<HTMLCanvasElement>) => {
     if (!ctxRef.current) return;
     ctxRef.current.beginPath();
@@ -71,6 +84,31 @@ export default function Drawer({ OnPredict, onClear }: DrawerProps) {
     if (!ctxRef.current) return;
     ctxRef.current.closePath();
     setIsDrawing(false);
+  };
+
+  const getTouchPos = (canvas: HTMLCanvasElement, touchEvent: TouchEvent) => {
+    const rect = canvas.getBoundingClientRect();
+    return {
+      x: touchEvent.touches[0].clientX - rect.left,
+      y: touchEvent.touches[0].clientY - rect.top,
+    };
+  };
+
+  const startDrawingTouch = (e: React.TouchEvent<HTMLCanvasElement>) => {
+    e.preventDefault();
+    if (!canvasRef.current) return;
+    const pos = getTouchPos(canvasRef.current, e.nativeEvent);
+    setIsDrawing(true);
+    setLastPos(pos);
+    setEmptyCanvas(false);
+  };
+
+  const drawTouch = (e: React.TouchEvent<HTMLCanvasElement>) => {
+    e.preventDefault();
+    if (!isDrawing || !lastPos || !canvasRef.current) return;
+    const pos = getTouchPos(canvasRef.current, e.nativeEvent);
+    drawLine(lastPos, pos);
+    setLastPos(pos);
   };
 
   const clearCanvas = () => {
@@ -115,6 +153,9 @@ export default function Drawer({ OnPredict, onClear }: DrawerProps) {
         onMouseMove={draw}
         onMouseUp={stopDrawing}
         onMouseLeave={stopDrawing}
+        onTouchStart={startDrawingTouch}
+        onTouchMove={drawTouch}
+        onTouchEnd={stopDrawing}
         width={canvasSize.width}
         height={canvasSize.height}
         className="border-2 border-black bg-white cursor-crosshair"
