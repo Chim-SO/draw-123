@@ -30,14 +30,14 @@ export default function Home() {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen space-y-5 p-10">
-      <h1 className="text-5xl font-bold bg-white border-4 border-black">
+      <h1 className="text-center text-3xl md:text-4xl lg:text-5xl font-bold bg-white border-4 border-black">
         Draw a Number (0–9)!
       </h1>
       <Drawer
         onClear={() => setPrediction(null)}
         OnPredict={getPrediction}
       ></Drawer>
-      <h2 className="min-h-14 text-3xl bg-white">
+      <h2 className="text-center min-h-14 text-2xl md:text-3xl lg:text-4xl bg-white">
         {prediction && (
           <>
             🤔 Hmm, you were trying to write: {prediction.class}. I'm{" "}

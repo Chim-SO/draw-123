@@ -9,26 +9,46 @@ export default function Drawer({ OnPredict, onClear }: DrawerProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
   const [loading, setLoading] = useState(false);
+  const [canvasSize, setCanvasSize] = useState({ width: 500, height: 500 });
   const FILL_COLOR = "#fff";
 
   const [isDrawing, setIsDrawing] = useState(false);
+  const getSize = () => {
+    if (window.innerWidth >= 640) {
+      return { width: 500, height: 500 };
+    } else {
+      return { width: 224, height: 224 };
+    }
+  };
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    canvas.width = 500;
-    canvas.height = 500;
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    ctx.lineCap = "round";
-    ctx.strokeStyle = "black";
-    ctx.lineWidth = 3;
-    ctxRef.current = ctx;
+    const resizeCanvas = () => {
+      const size = getSize();
+      setCanvasSize(size);
 
-    ctxRef.current.fillStyle = FILL_COLOR;
-    ctxRef.current.fillRect(0, 0, canvas.width, canvas.height);
+      canvas.width = size.width;
+      canvas.height = size.height;
+
+      ctx.clearRect(0, 0, size.width, size.height);
+      ctx.fillStyle = FILL_COLOR;
+      ctx.fillRect(0, 0, size.width, size.height);
+
+      ctx.lineCap = "round";
+      ctx.strokeStyle = "black";
+      ctx.lineWidth = 3;
+      ctxRef.current = ctx;
+    };
+
+    resizeCanvas();
+
+    window.addEventListener("resize", resizeCanvas);
+    return () => window.removeEventListener("resize", resizeCanvas);
   }, []);
 
   const startDrawing = (e: React.MouseEvent<HTMLCanvasElement>) => {
@@ -87,6 +107,8 @@ export default function Drawer({ OnPredict, onClear }: DrawerProps) {
         onMouseMove={draw}
         onMouseUp={stopDrawing}
         onMouseLeave={stopDrawing}
+        width={canvasSize.width}
+        height={canvasSize.height}
         className="border-2 border-black bg-white cursor-crosshair"
       />
 
