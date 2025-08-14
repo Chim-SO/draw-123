@@ -33,10 +33,19 @@ export default function Drawer({ OnPredict, onClear }: DrawerProps) {
 
     const resizeCanvas = () => {
       const size = getSize();
+      const ratio = window.devicePixelRatio || 1;
+
       setCanvasSize(size);
 
-      canvas.width = size.width;
-      canvas.height = size.height;
+      canvas.width = size.width * ratio;
+      canvas.height = size.height * ratio;
+
+      canvas.style.width = `${size.width}px`;
+      canvas.style.height = `${size.height}px`;
+
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+
+      ctx.scale(ratio, ratio);
 
       ctx.clearRect(0, 0, size.width, size.height);
       ctx.fillStyle = FILL_COLOR;
