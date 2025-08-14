@@ -16,7 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${patrickHand.className} antialiased max-h-screen`}>
+      <body className={`${patrickHand.className} antialiased`}>
         <div
           className="absolute inset-0 -z-50"
           style={{
