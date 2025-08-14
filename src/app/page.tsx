@@ -40,7 +40,7 @@ export default function Home() {
       <h2 className="text-center min-h-14 text-2xl md:text-3xl lg:text-4xl bg-white">
         {prediction && (
           <>
-            🤔 Hmm, you were trying to write: {prediction.class}. I'm{" "}
+            🤔 Hmm, you were trying to write: {prediction.class}. I am{" "}
             {(prediction.confidence * 100).toFixed(2)}% confident!
           </>
         )}
