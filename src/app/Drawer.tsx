@@ -158,7 +158,7 @@ export default function Drawer({ OnPredict, onClear }: DrawerProps) {
         onTouchEnd={stopDrawing}
         width={canvasSize.width}
         height={canvasSize.height}
-        className="border-2 border-black bg-white cursor-crosshair"
+        className="border-2 border-black bg-white touch-none cursor-crosshair"
       />
 
       <div className="flex w-full space-x-4">
