@@ -159,7 +159,7 @@ export default function Drawer({ OnPredict, onClear }: DrawerProps) {
         className="border-2 border-black bg-white touch-none cursor-crosshair"
       />
 
-      <div className="flex w-full space-x-4">
+      <div className="flex w-full gap-4">
         <button
           className="flex-1 text-xl bg-white text-black py-2 border-2 rounded border-black
           hover:bg-gray-500 hover:cursor-pointer"
