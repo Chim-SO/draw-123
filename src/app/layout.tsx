@@ -6,7 +6,10 @@ const patrickHand = Patrick_Hand({ subsets: ["latin"], weight: "400" });
 
 export const metadata: Metadata = {
   title: "Draw 123",
-  description: "Learn to draw/write digits with canvas.",
+  description: "End-to-end MLOps application demo by Zatout Chayma.",
+  twitter: {
+    card: "summary_large_image",
+  },
 };
 
 export default function RootLayout({
