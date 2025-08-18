@@ -33,30 +33,21 @@ export default function Drawer({ OnPredict, onClear }: DrawerProps) {
 
     const resizeCanvas = () => {
       const size = getSize();
-      const ratio = window.devicePixelRatio || 1;
-
-      setCanvasSize(size);
-
-      canvas.width = size.width * ratio;
-      canvas.height = size.height * ratio;
-
-      canvas.style.width = `${size.width}px`;
-      canvas.style.height = `${size.height}px`;
-
-      ctx.setTransform(1, 0, 0, 1, 0, 0);
-
-      ctx.scale(ratio, ratio);
+      canvas.width = size.width;
+      canvas.height = size.height;
 
       ctx.clearRect(0, 0, size.width, size.height);
       ctx.fillStyle = FILL_COLOR;
       ctx.fillRect(0, 0, size.width, size.height);
-
       ctx.lineCap = "round";
       ctx.strokeStyle = "black";
-      ctx.lineWidth = 3;
+
+      const isMobileDevice = /Mobi|Android|iPhone|iPad|iPod/i.test(
+        navigator.userAgent
+      );
+      ctx.lineWidth = 5;
       ctxRef.current = ctx;
     };
-
     resizeCanvas();
 
     window.addEventListener("resize", resizeCanvas);
@@ -165,8 +156,6 @@ export default function Drawer({ OnPredict, onClear }: DrawerProps) {
         onTouchStart={startDrawingTouch}
         onTouchMove={drawTouch}
         onTouchEnd={stopDrawing}
-        width={canvasSize.width}
-        height={canvasSize.height}
         className="border-2 border-black bg-white touch-none cursor-crosshair"
       />
 
