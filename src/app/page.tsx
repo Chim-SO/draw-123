@@ -1,6 +1,7 @@
 "use client";
 import Drawer from "./Drawer";
 import { useState } from "react";
+import Image from "next/image";
 
 export default function Home() {
   const [prediction, setPrediction] = useState<{

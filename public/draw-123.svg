@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="520"
+   height="520"
+   viewBox="0 0 137.58327 137.58327"
+   version="1.1"
+   id="svg1"
+   inkscape:export-filename="draw-123.png"
+   inkscape:export-xdpi="94.117645"
+   inkscape:export-ydpi="94.117645"
+   inkscape:version="1.4.2 (ebf0e940d0, 2025-05-08)"
+   sodipodi:docname="draw-123.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     inkscape:zoom="1.0431888"
+     inkscape:cx="398.77727"
+     inkscape:cy="254.50809"
+     inkscape:window-width="2490"
+     inkscape:window-height="1376"
+     inkscape:window-x="1990"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="text"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="display:inline">
+    <rect
+       style="display:inline;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2.64583;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
+       id="rect4"
+       width="132.29164"
+       height="132.29164"
+       x="3.0435517"
+       y="3.0435517" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:149.973px;font-family:Dyuthi;-inkscape-font-specification:Dyuthi;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#000000;fill-opacity:0.864862;stroke-width:83.9286;paint-order:stroke fill markers"
+       x="-2.9996262"
+       y="128.04201"
+       id="text1"
+       transform="scale(0.97420576,1.0264772)"><tspan
+         sodipodi:role="line"
+         id="tspan1"
+         style="fill:#000000;stroke-width:83.9289"
+         x="-2.9996262"
+         y="128.04201">D</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:92.3094px;font-family:Dyuthi;-inkscape-font-specification:Dyuthi;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#000000;fill-opacity:0.864862;stroke-width:51.6585;paint-order:stroke fill markers"
+       x="38.681683"
+       y="64.358673"
+       id="text2"
+       transform="scale(1.2920308,0.77397536)"><tspan
+         sodipodi:role="line"
+         id="tspan2"
+         style="stroke-width:51.6587"
+         x="38.681683"
+         y="64.358673">1</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:100.246px;font-family:Dyuthi;-inkscape-font-specification:Dyuthi;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#000000;fill-opacity:0.864862;stroke-width:56.1;paint-order:stroke fill markers"
+       x="92.825607"
+       y="80.440384"
+       id="text3"
+       transform="scale(0.93855223,1.0654708)"><tspan
+         sodipodi:role="line"
+         id="tspan3"
+         style="stroke-width:56.1002"
+         x="92.825607"
+         y="80.440384">2</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:78.4655px;font-family:Dyuthi;-inkscape-font-specification:Dyuthi;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#000000;fill-opacity:0.864862;stroke-width:43.9112;paint-order:stroke fill markers"
+       x="64.314018"
+       y="169.12469"
+       id="text4"
+       transform="scale(1.280328,0.78104985)"><tspan
+         sodipodi:role="line"
+         id="tspan4"
+         style="stroke-width:43.9113"
+         x="64.314018"
+         y="169.12469">3</tspan></text>
+  </g>
+</svg>
