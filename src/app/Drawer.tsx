@@ -164,12 +164,14 @@ export default function Drawer({ OnPredict, onClear }: DrawerProps) {
           className="flex-1 text-xl bg-white text-black py-2 border-2 rounded border-black
           hover:bg-gray-500 hover:cursor-pointer"
           onClick={clearCanvas}
+          disabled={emptyCanvas}
         >
           Clear
         </button>
         <button
           className="flex-1 text-xl bg-black text-white py-2 rounded border-2 border-white hover:bg-gray-500 hover:cursor-pointer"
           onClick={predict}
+          disabled={loading}
         >
           {loading ? "Predicting..." : "Predict"}
         </button>
