@@ -1,7 +1,6 @@
 "use client";
 import Drawer from "./Drawer";
 import { useEffect, useState } from "react";
-import Image from "next/image";
 
 export default function Home() {
   const [prediction, setPrediction] = useState<{
@@ -33,7 +32,7 @@ export default function Home() {
         } catch {
           setStatusMessage("⏳ Still waking up the model...");
         }
-      }, 3000);
+      }, 1000);
     };
 
     warmup();

@@ -11,7 +11,6 @@ export default function Drawer({ OnPredict, onClear }: DrawerProps) {
   const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
   const [loading, setLoading] = useState(false);
   const [emptyCanvas, setEmptyCanvas] = useState(true);
-  const [canvasSize, setCanvasSize] = useState({ width: 500, height: 500 });
   const [lastPos, setLastPos] = useState<{ x: number; y: number } | null>(null);
   const FILL_COLOR = "#fff";
 
@@ -42,9 +41,6 @@ export default function Drawer({ OnPredict, onClear }: DrawerProps) {
       ctx.lineCap = "round";
       ctx.strokeStyle = "black";
 
-      const isMobileDevice = /Mobi|Android|iPhone|iPad|iPod/i.test(
-        navigator.userAgent
-      );
       ctx.lineWidth = 5;
       ctxRef.current = ctx;
     };
