@@ -11,12 +11,12 @@ export default function Home() {
   const [statusMessage, setStatusMessage] = useState(
     "🔄 Waking up the model..."
   );
-  const [warmingUp, setWarmingUp] = useState(true);
+  const [warmingUp, setWarmingUp] = useState(false);
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
 
     const warmup = async () => {
-      setWarmingUp(true);
+      setWarmingUp(false);
       setStatusMessage("🔄 Waking up the model...");
 
       intervalId = setInterval(async () => {
@@ -66,20 +66,24 @@ export default function Home() {
         Draw a Number (0–9)!
       </h1>
 
-      <Drawer
-        onClear={() => setPrediction(null)}
-        OnPredict={getPrediction}
-      ></Drawer>
-      <h2 className="text-center min-h-14 text-2xl md:text-3xl lg:text-4xl bg-white">
-        {prediction && (
-          <>
-            🤔 Hmm, you were trying to write: {prediction.class}. I am{" "}
-            {(prediction.confidence * 100).toFixed(2)}% confident!
-          </>
-        )}
-      </h2>
+      {warmingUp && (
+        <>
+          <Drawer
+            onClear={() => setPrediction(null)}
+            OnPredict={getPrediction}
+          ></Drawer>
+          <h2 className="text-center min-h-14 text-2xl md:text-3xl lg:text-4xl bg-white">
+            {prediction && (
+              <>
+                🤔 Hmm, you were trying to write: {prediction.class}. I am{" "}
+                {(prediction.confidence * 100).toFixed(2)}% confident!
+              </>
+            )}
+          </h2>
+        </>
+      )}
       <p className="flex items-center text-center justify-center text-lg  min-h-14 bg-yellow-100 px-5">
-        {warmingUp && <>{statusMessage}</>}
+        {statusMessage}
       </p>
     </div>
   );
