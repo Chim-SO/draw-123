@@ -32,7 +32,7 @@ export default function Home() {
         } catch {
           setStatusMessage("⏳ Still waking up the model...");
         }
-      }, 1000);
+      }, 3000);
     };
 
     warmup();
