@@ -9,7 +9,7 @@ export default function Home() {
   } | null>(null);
 
   const [statusMessage, setStatusMessage] = useState(
-    "🔄 Waking up the model..."
+    "⏳ Hmm, waking up the model... please wait a moment!"
   );
   const [warmingUp, setWarmingUp] = useState(false);
   useEffect(() => {
@@ -17,13 +17,13 @@ export default function Home() {
 
     const warmup = async () => {
       setWarmingUp(false);
-      setStatusMessage("🔄 Waking up the model...");
+      setStatusMessage("⏳ Waking up the model... please wait a moment!");
 
       intervalId = setInterval(async () => {
         try {
           const res = await fetch("/api/warmup");
           if (res.ok) {
-            setStatusMessage("⚡ Model is ready!");
+            setStatusMessage("✅ Great news, the model is ready to go!");
             setWarmingUp(true);
             clearInterval(intervalId);
           } else {
