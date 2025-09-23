@@ -1,6 +1,6 @@
 "use client";
 import Drawer from "./Drawer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 
 export default function Home() {
@@ -8,6 +8,38 @@ export default function Home() {
     class: number;
     confidence: number;
   } | null>(null);
+
+  const [statusMessage, setStatusMessage] = useState(
+    "🔄 Waking up the model..."
+  );
+  const [warmingUp, setWarmingUp] = useState(true);
+  useEffect(() => {
+    let intervalId: NodeJS.Timeout;
+
+    const warmup = async () => {
+      setWarmingUp(true);
+      setStatusMessage("🔄 Waking up the model...");
+
+      intervalId = setInterval(async () => {
+        try {
+          const res = await fetch("/api/warmup");
+          if (res.ok) {
+            setStatusMessage("⚡ Model is ready!");
+            setWarmingUp(true);
+            clearInterval(intervalId);
+          } else {
+            setStatusMessage("⏳ Still waking up the model...");
+          }
+        } catch {
+          setStatusMessage("⏳ Still waking up the model...");
+        }
+      }, 3000);
+    };
+
+    warmup();
+
+    return () => clearInterval(intervalId);
+  }, []);
 
   const getPrediction = async (base64Image: string) => {
     const base64 = base64Image.replace(/^data:image\/png;base64,/, "");
@@ -34,6 +66,7 @@ export default function Home() {
       <h1 className="text-center text-3xl md:text-4xl lg:text-5xl font-bold bg-white border-4 border-black">
         Draw a Number (0–9)!
       </h1>
+
       <Drawer
         onClear={() => setPrediction(null)}
         OnPredict={getPrediction}
@@ -46,6 +79,9 @@ export default function Home() {
           </>
         )}
       </h2>
+      <p className="flex items-center text-center justify-center text-lg  min-h-14 bg-yellow-100 px-5">
+        {warmingUp && <>{statusMessage}</>}
+      </p>
     </div>
   );
 }

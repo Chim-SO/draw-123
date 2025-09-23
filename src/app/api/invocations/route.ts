@@ -56,7 +56,9 @@ async function predictWithMLflowLocalServer(image_base64: string) {
 }
 
 async function predictWithHWDCHugs(image_base64: string) {
-  const client = await Client.connect("ChimSO/HWDC");
+  const space = process.env.HF_SPACE;
+  if (!space) throw new Error("Missing HF_SPACE environment variable");
+  const client = await Client.connect(space);
   const result = await client.predict("/predict", {
     image_base64: image_base64,
   });
