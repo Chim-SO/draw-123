@@ -11,12 +11,13 @@ export default function Home() {
   const [statusMessage, setStatusMessage] = useState(
     "⏳ Hmm, waking up the model... please wait a moment!"
   );
-  const [warmingUp, setWarmingUp] = useState(false);
+  const [isModelReady, setIsModelReady] = useState(false);
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
 
     const warmup = async () => {
-      setWarmingUp(false);
+      console.log("warmup ... ");
+      setIsModelReady(false);
       setStatusMessage("⏳ Waking up the model... please wait a moment!");
 
       intervalId = setInterval(async () => {
@@ -24,7 +25,7 @@ export default function Home() {
           const res = await fetch("/api/warmup");
           if (res.ok) {
             setStatusMessage("✅ Great news, the model is ready to go!");
-            setWarmingUp(true);
+            setIsModelReady(true);
             clearInterval(intervalId);
           } else {
             setStatusMessage("⏳ Still waking up the model...");
@@ -56,7 +57,6 @@ export default function Home() {
     }
 
     const result = await response.json();
-    console.log(result);
     setPrediction(result.prediction);
   };
 
@@ -66,7 +66,7 @@ export default function Home() {
         Draw a Number (0–9)!
       </h1>
 
-      {warmingUp && (
+      {isModelReady && (
         <>
           <Drawer
             onClear={() => setPrediction(null)}
